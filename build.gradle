@@ -1,0 +1,52 @@
+//buildscript
+buildscript {
+    //ext = buildscript에서 사용하는 전역변수
+    //2.1.7.RELEASE를 값으로 가지는
+    ext{
+        springBootVersion = '2.1.7.RELEASE'
+    }
+
+    //어떤 원격 저장소에서 의존성(라이브러리)을 받을지 결정
+    //jcenter()는 지원 종료인듯
+    repositories {
+        mavenCentral()
+        //jcenter(),deprecated
+    }
+    dependencies {
+        //org.springframework.boot:spring-boot-gradle-plugin을 2.1.7버전으로 받겠다는 뜻
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+//의존성들을 관리
+apply plugin: 'io.spring.dependency-management'
+
+group 'com.jojoldu.book'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+//책에서는 compile을 썼지만, 이제 implementation을 사용
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    implementation('org.projectlombok:lombok')
+    //gradle 5부터 명시해야 한다.
+    annotationProcessor('org.projectlombok:lombok')
+
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('com.h2database:h2')
+
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
+}
+
+test {
+    useJUnitPlatform()
+}
