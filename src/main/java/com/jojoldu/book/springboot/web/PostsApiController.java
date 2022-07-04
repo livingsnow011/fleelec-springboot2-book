@@ -30,4 +30,11 @@ public class PostsApiController {
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDTO requestDTO){
         return postsService.update(id, requestDTO);
     }
+
+    //글 삭제 API
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id){
+        postsService.delete(id);
+        return id;
+    }
 }
